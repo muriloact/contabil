@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
@@ -9,6 +9,27 @@ import NavBar from './components/NavBar';
 
 
 function EscrituraFiscal() {
+    const [dados, setDados] = useState([]);
+
+    const inserirDados = (value) => {
+        setDados((data) => (
+            {
+                ...data,
+                [value.target.name]: value.target.value,
+            }
+        ))
+    }
+
+    // ROTA PARA INSERIR OS DADOS DA ESCRITURA FISCAL NO BANCO DE DADOS
+    // const inserirescritura = () => {
+    // Axios.post("URL", {
+    //   data: dados
+    // }).then((response) => {
+    //   console.log(response)
+    // }).catch((err) => {
+    //   confirm.log(err)
+    // }) }
+
     return (
         <div>
             <NavBar />
@@ -20,26 +41,26 @@ function EscrituraFiscal() {
                             <Col xs={4} >
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Nº Escritura Fiscal</Form.Label>
-                                    <Form.Control type="number" placeholder="Digite o número da escritura aqui." />
+                                    <Form.Control type="number" placeholder="Digite o número da escritura aqui." name='escritura' onChange={inserirDados} />
                                 </Form.Group>
                             </Col>
                             <Col xs={3}>
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Data</Form.Label>
-                                    <Form.Control type="date" />
+                                    <Form.Control type="date" name='data' onChange={inserirDados} />
                                 </Form.Group>
                             </Col>
                             <Col xs={5} >
                                 <Form.Group className="mb-3" >
                                     <Form.Label>Valor</Form.Label>
-                                    <Form.Control type="number" placeholder="Digite o valor aqui." />
+                                    <Form.Control type="number" placeholder="Digite o valor aqui." name='valor' onChange={inserirDados} />
                                 </Form.Group>
                             </Col>
                         </Row>
                         <Col xs={8}>
                             <Form.Group className="mb-3" >
                                 <Form.Label>Descrição da Nota</Form.Label>
-                                <Form.Control as="textarea" rows={3} />
+                                <Form.Control as="textarea" rows={3} name='descricao' onChange={inserirDados} />
                             </Form.Group>
                         </Col>
                     </Row>
@@ -47,9 +68,9 @@ function EscrituraFiscal() {
                         <Button variant="success" size="lg" className='Cadastrar'>
                             Cadastrar
                         </Button>
-                        <Button variant="danger" size="lg" className='Cadastrar'>
+                        {/* <Button variant="danger" size="lg" className='Cadastrar'>
                             Buscar
-                        </Button>
+                        </Button> */}
                     </Row>
                 </Form>
             </Stack>
