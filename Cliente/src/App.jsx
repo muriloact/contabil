@@ -29,13 +29,6 @@ function App() {
     confirm.log(err)
   }) }
 
-
-  /*
-  function gerarPassword() {
-    return Math.random().toString(36).slice(-10);
-}
-  */
-
   const inserirDados = (value) => {
     setDados((data) => (
       {
@@ -50,7 +43,6 @@ function App() {
   // }
 
   console.log(tabelaPlanos)
-  console.log(AlphaNumeric);
   return (
     <>
       <NavBar />
@@ -68,7 +60,7 @@ function App() {
                 {tabelaPlanos.map((plano) => {
                   return (
                     <tr key={plano.idPlanoContas}>
-                      <td >{`${plano.CodigoPlano} ${plano.Descricao}`}</td>
+                      <td >{`${plano.CodigoPlano} ${plano.Tipo}`}</td>
                     </tr>
                   )
                 })}

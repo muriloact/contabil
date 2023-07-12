@@ -14,6 +14,7 @@ function MovimentoContabil() {
     const [dados, setDados] = useState([]);
     const [tipo, setTipo] = useState('');
     const [conta, setConta] = useState([]);
+    // const [movimento,setMovimento] useState([]);
 
     useEffect(() => {
         consultarConta()
@@ -32,24 +33,8 @@ function MovimentoContabil() {
     const tipomovi = (value) => {
         setTipo(value)
         console.log(tipo)
-        // inserirmovi()
-        lancamento()
+        inserirmovi()
     }
-
-    const lancamento = ()=>{
-        setDados((data) => (
-            {
-                ...data,
-                "NumeroLancamento" : alphanumerico
-            }
-        ))
-    }
-
-    const AlphaNumeric = () => {
-        return Math.random().toString(20).slice(-10);
-    }
-
-    const alphanumerico = Array.apply(null, Array(1)).map(AlphaNumeric);
     
 
     const consultarConta = () => {
@@ -60,15 +45,22 @@ function MovimentoContabil() {
         })
     }
 
-    // ROTA PARA INSERIR OS DADOS DA MOVIMENTAÇÃO NO BANCO DE DADOS
-    // const inserirmovi = () => { Axios.post("URL", {
-    //   data: dados,
-    //   tipo: tipo
-    // }).then((response) => {
-    //   console.log(response)
-    // }).catch((err) => {
-    //   confirm.log(err)
-    // }) }
+
+
+    //ROTA PARA INSERIR OS DADOS DA MOVIMENTAÇÃO NO BANCO DE DADOS
+    const inserirmovi = () => { Axios.post("http://localhost:3001/cadastrarMovimentoContabil", {
+      data: dados.numero,
+      data: dados.data,
+      data: dados.descricaoV,
+      data: dados.descricaoE,
+      data: dados.conta,
+      data: dados.valorD,
+      data: dados.valorC
+    }).then((response) => {
+      console.log(response)
+    }).catch((err) => {
+      confirm.log(err)
+    }) }
 
 
     console.log(dados)
@@ -81,15 +73,13 @@ function MovimentoContabil() {
                 <h1>MOVIMENTAÇÃO CONTABIL</h1>
                 <Form>
                     <Row>
-                        <Col xs={4}>
+                        <Col xs={5}>
                             <Form.Group className="mb-3">
                                 <Form.Label>Número Lançamento</Form.Label>
                                 <Form.Control
                                     type="text"
-                                    value={alphanumerico}
-                                    // placeholder={inserirDados}
-                                    
                                     name="NumeroLancamento"
+                                    placeholder="Numero de Lançamento"
                                 />
                             </Form.Group>
                         </Col>
@@ -142,10 +132,7 @@ function MovimentoContabil() {
                 </Form>
                 <Row className="ContainerBotao">
                     <Button variant="success" size="lg" className='Cadastrar' value="entrada" onClick={(e) => tipomovi(e.target.value)}>
-                        ENTRADA
-                    </Button>
-                    <Button variant="danger" size="lg" className='Cadastrar' value="saida" onClick={(e) => tipomovi(e.target.value)}>
-                        SAIDA
+                        CADASTRO
                     </Button>
                 </Row>
             </Stack>
